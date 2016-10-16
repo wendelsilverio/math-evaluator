@@ -4,7 +4,7 @@ $(document).ready(function() {
 	  type: 'GET',
 	  url: url,
 	  success: function (data) {
-		$('#rest-content').append(data.content);
+		$('#rest-content').append(data.status);
 	  }
 	});
 });
