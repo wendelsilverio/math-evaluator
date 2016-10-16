@@ -5,8 +5,7 @@ $(document).ready(function() {
 	  url: url,
 	  dataType: "jsonp",
 	  success: function (data) {
-		console.log(data)
-		alert(data);
+		$('#rest-content').append(data.content);
 	  }
 	});
 });
