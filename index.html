@@ -32,8 +32,15 @@
 
 <p>O serviço REST já está disponível!!</p>
 
-          <p> Health beat:</p>
-          <pre>{"status":"UP","diskSpace":{"status":"UP","total":402672611328,"free":340650864640,"threshold":10485760}}</pre>
+          <p> Health beat: <a href="https://math-evaluator.herokuapp.com/health">https://math-evaluator.herokuapp.com/health</a></p>
+          <pre>
+          <script type="text/javascript">
+          getJSONP('https://math-evaluator.herokuapp.com/health', function(data){
+              document.write(data);
+          });
+          </script>
+          {"status":"UP","diskSpace":{"status":"UP","total":402672611328,"free":340650864640,"threshold":10485760}}
+          </pre>
 <h3>
 <a id="autor" class="anchor" href="#autor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Autor</h3>
 
