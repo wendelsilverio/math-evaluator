@@ -1,6 +1,6 @@
 language: java
-<<<<<<< HEAD
-=======
 jdk:
 - oraclejdk8
->>>>>>> fa1e3f3dc7eaa3311f9a3156c2ea0f2b7f874aa9
+
+before_script:
+ - chmod +x ./mvnw
