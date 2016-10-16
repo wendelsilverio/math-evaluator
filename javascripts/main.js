@@ -1,7 +1,12 @@
 $(document).ready(function() {
-    $.ajax({
-        url: "https://math-evaluator.herokuapp.com/health"
-    }).then(function(data) {
-       $('#rest-content').append(data.content);
-    });
+	var url = 'https://math-evaluator.herokuapp.com/health';
+	$.ajax({
+		type: 'GET',
+	  url: url,
+	  dataType: "jsonp",
+	  success: function (data) {
+		console.log(data)
+		alert(data);
+	  }
+	});
 });
