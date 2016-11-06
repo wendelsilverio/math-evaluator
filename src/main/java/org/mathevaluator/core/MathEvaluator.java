@@ -1,5 +1,7 @@
 package org.mathevaluator.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -8,15 +10,24 @@ public class MathEvaluator {
 	public static Number f(String expression) throws MathEvaluatorException {
 
 		try {
+
+			if(!expression.contains("+")) {
+				return Integer.valueOf(expression);
+			}
+
 			StringTokenizer st = new StringTokenizer(expression, "+");
 
-			String valueA = st.nextToken().trim();
-			String valueB = st.nextToken().trim();
+			List<Integer> numbers = new ArrayList<>();
+			while(st.hasMoreTokens()) {
+				numbers.add(Integer.parseInt(st.nextToken().trim()));
+			}
 
-			Integer a = Integer.parseInt(valueA);
-			Integer b = Integer.parseInt(valueB);
+			Integer r = 0;
+			for (Integer n : numbers) {
+				r+=n;
+			}
 
-			return a + b;
+			return r;
 		} catch (NoSuchElementException nsee) {
 			throw new MathEvaluatorException("Invalid expression: " + expression);
 		}
