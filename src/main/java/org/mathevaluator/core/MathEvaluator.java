@@ -1,19 +1,25 @@
 package org.mathevaluator.core;
 
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class MathEvaluator {
 
-	public static Number f(String expression) {
-		StringTokenizer st = new StringTokenizer(expression, "+");
+	public static Number f(String expression) throws MathEvaluatorException {
 
-		String valueA = st.nextToken().trim();
-		String valueB = st.nextToken().trim();
+		try {
+			StringTokenizer st = new StringTokenizer(expression, "+");
 
-		Integer a = Integer.parseInt(valueA);
-		Integer b = Integer.parseInt(valueB);
+			String valueA = st.nextToken().trim();
+			String valueB = st.nextToken().trim();
 
-		return a + b;
+			Integer a = Integer.parseInt(valueA);
+			Integer b = Integer.parseInt(valueB);
+
+			return a + b;
+		} catch (NoSuchElementException nsee) {
+			throw new MathEvaluatorException("Invalid expression: " + expression);
+		}
 	}
 
 }
