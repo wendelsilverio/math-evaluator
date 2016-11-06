@@ -5,7 +5,7 @@ $(document).ready(function() {
 		  type: 'GET',
 		  url: url,
 		  success: function (data) {
-			$('#rest-result').append(data);
+			$('#rest-result').append(data.r);
 		  }
 		});
 	});
