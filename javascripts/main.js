@@ -1,21 +1,24 @@
 $(document).ready(function() {
+	
+	//var host = 'https://math-evaluator.herokuapp.com';
+	var host = 'http://localhost:8080';
+	
 	$('#btnCalculate').click(function(){
-		var url = 'https://math-evaluator.herokuapp.com/me?f='+encodeURIComponent($('#txtFunction').val());
+		$('#rest-result').empty();
+		$('#calc-error').empty();
+		
+		var url = host+'/me?f='+encodeURIComponent($('#txtFunction').val());
 		$.ajax({
 		  type: 'GET',
 		  url: url,
 		  success: function (data) {
-			$('#rest-result').append(data);
+			  if(data.r) {
+				$('#rest-result').append(data.r);
+			  } else {
+				$('.error').show();
+				$('#calc-error').append(data.error);
+			  }
 		  }
 		});
-	});
-	
-	var url = 'https://math-evaluator.herokuapp.com/health';
-	$.ajax({
-	  type: 'GET',
-	  url: url,
-	  success: function (data) {
-		$('#rest-hb').append(data.status);
-	  }
 	});
 });
