@@ -19,11 +19,3 @@ $(document).ready(function() {
 	  }
 	});
 });
-=======
-			$('#rest-content').append(data.status);
-		  }
-		});	
-	});
-
-});
->>>>>>> c337974f92a328fef52a81d41f400e00170fdbf2
