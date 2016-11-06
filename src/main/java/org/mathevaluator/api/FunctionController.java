@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FunctionController {
 
 	@RequestMapping(value = "me", method = RequestMethod.GET, produces = "application/json")
-	public String function(@RequestParam(value = "f") String expression) {
+	public String function(@RequestParam(required=true, value = "f") String expression) {
 		JSONObject json = new JSONObject();
 		json.append("r", MathEvaluator.f(expression));
 		return json.toString();
