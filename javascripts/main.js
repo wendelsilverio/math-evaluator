@@ -1,5 +1,8 @@
 $(document).ready(function() {
-	var url = 'https://math-evaluator.herokuapp.com/health';
+	$('#btnCalculate').click(function(){
+		
+	});
+	var url = 'https://math-evaluator.herokuapp.com/me?f='+$('#txtFunction').val();
 	$.ajax({
 	  type: 'GET',
 	  url: url,
