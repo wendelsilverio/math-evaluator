@@ -1,4 +1,4 @@
-package wendelsilverio.math;
+package org.mathevaluator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,4 +9,6 @@ public class MathEvaluatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MathEvaluatorApplication.class, args);
 	}
+
+
 }
