@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	$('#btnCalculate').click(function(){
+		
+		$('#rest-result').empty();
+		
 		var url = 'https://math-evaluator.herokuapp.com/me?f='+encodeURIComponent($('#txtFunction').val());
 		$.ajax({
 		  type: 'GET',
