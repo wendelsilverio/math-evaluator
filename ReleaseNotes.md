@@ -5,3 +5,7 @@
 - Trigonometric functions (sine, cosine, tangent)
 - Algebra functions (exp, log, pow, sqrt)
 
+
+
+------------------------------------------------------------
+See [Semantic Versioning](http://semver.org/) 
