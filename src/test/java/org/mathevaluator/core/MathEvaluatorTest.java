@@ -52,7 +52,7 @@ public class MathEvaluatorTest {
 	}
 
 	@Test
-	public void exponent() {
+	public void exponentiation() {
 		assertEquals(148.413159, new MathEvaluator().f("exp(5)"), 1E-6);
 	}
 
