@@ -23,4 +23,10 @@ public class FunctionControllerTest {
 		assertThat(body).isEqualTo("{\"result\":[2]}");
 	}
 
+	@Test
+	public void fWithVariables() {
+		String body = restTemplate.getForObject("/?f=a+b&a=2&b=3", String.class);
+		assertThat(body).isEqualTo("{\"result\":[5]}");
+	}
+
 }
