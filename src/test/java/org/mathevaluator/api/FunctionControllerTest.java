@@ -18,9 +18,9 @@ public class FunctionControllerTest {
 	private TestRestTemplate restTemplate;
 
 	@Test
-	public void function() {
-		String body = restTemplate.getForObject("/me?f=1+1", String.class);
-		assertThat(body).isEqualTo("{\"r\":[2]}");
+	public void f() {
+		String body = restTemplate.getForObject("/?f=1+1", String.class);
+		assertThat(body).isEqualTo("{\"result\":[2]}");
 	}
 
 }
