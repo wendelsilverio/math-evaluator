@@ -32,15 +32,22 @@
         <section id="main-content">
           <p>API de cálculo matemático criada na disciplina CAP-389-3 Projeto Ágil de Software do curso de Computação Aplicada do INPE.</p>
 		  
-		  <p>Função:</p>
+		  <p>Teste a API:</p>
 		  <form style="margin: 0; padding: 0;">
 			<p>
 				f =  
-				<input id="txtFunction" style="display: inline;" type="text" value="1 + 1" />
+				<input id="txtFunction" style="display: inline;" type="text" value="1+1" />
 				<input id="btnCalculate" style="display: inline;" type="button" value="Calcular" />
+			</p>
+			<p>Outros exemplos: 
+				<ul>
+					<li>sin(a)&a=0.7853981633974483</li>
+					<li>a+b&a=1&b=2</li>
+				</ul>
 			</p>
 		  </form>
 		  <p>Resultado:</p>
+		  <span class="rest-url" style="display:none;">GET <a id="result-link" href="" target="_blank"></a></span>
           <pre id="rest-result"></pre>
 		  
 		  <p class="error" style="color: red;display:none;"> Erro: </p>
