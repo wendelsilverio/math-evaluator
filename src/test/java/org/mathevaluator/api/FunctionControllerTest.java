@@ -11,22 +11,22 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class FunctionControllerTest {
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
-	@Test
-	public void f() {
-		String body = restTemplate.getForObject("/?f=1+1", String.class);
-		assertThat(body).isEqualTo("{\"result\":[2]}");
-	}
+    @Test
+    public void f() {
+	String body = restTemplate.getForObject("/?f=1+1", String.class);
+	assertThat(body).isEqualTo("{\"result\":[2]}");
+    }
 
-	@Test
-	public void fWithVariables() {
-		String body = restTemplate.getForObject("/?f=a+b&a=2&b=3", String.class);
-		assertThat(body).isEqualTo("{\"result\":[5]}");
-	}
+    @Test
+    public void fWithVariables() {
+	String body = restTemplate.getForObject("/?f=a+b&a=2&b=3", String.class);
+	assertThat(body).isEqualTo("{\"result\":[5]}");
+    }
 
 }

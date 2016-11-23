@@ -1,52 +1,60 @@
 package org.mathevaluator.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.mathevaluator.util.Node;
 
-public class ExpressionNode extends Node<ExpressionNode> {
+public class Expression extends Node<Expression> {
 
-    private String expression;
+    private String formula;
     private Operator operator;
     private Double result;
+    private Map<String, Double> variables = new HashMap<>();
 
-    public ExpressionNode(String expression) throws InvalidExpressionException {
-	init(expression, null);
+    public Expression(String formula) {
+	this.formula = formula;
     }
 
-    private ExpressionNode(String expression, ExpressionNode parent) throws InvalidExpressionException {
-	init(expression, parent);
+    public Expression(String formula, Map<String, Double> variables) {
+	this(formula);
+	this.variables.putAll(variables);
     }
 
-    private void init(String expression, ExpressionNode parent) throws InvalidExpressionException {
-	expression = removeIllegalCharacters(expression);
-	expression = removeBrackets(expression);
-	expression = addZero(expression);
-	if (checkBrackets(expression) != 0) {
-	    throw new InvalidExpressionException("Wrong number of brackets in " + expression);
-	}
+    private Expression(String formula, Expression parent) {
+	this(formula);
+	this.variables.putAll(parent.variables);
 	setParent(parent);
-	this.expression = expression;
-	result = getDouble(expression);
+    }
+
+    private void init() throws InvalidExpressionException {
+	String frml = removeIllegalCharacters(formula);
+	frml = removeBrackets(frml);
+	frml = addZero(frml);
+	if (checkBrackets(frml) != 0) {
+	    throw new InvalidExpressionException("Wrong number of brackets in " + frml);
+	}
+	result = getDouble(frml);
 
 	if (result != null) {
 	    return;
 	}
 
-	int sLength = expression.length();
+	int sLength = frml.length();
 	int inBrackets = 0;
 	int startOperator = 0;
 
 	for (int i = 0; i < sLength; i++) {
-	    if (expression.charAt(i) == '(') {
+	    if (frml.charAt(i) == '(') {
 		inBrackets++;
-	    } else if (expression.charAt(i) == ')') {
+	    } else if (frml.charAt(i) == ')') {
 		inBrackets--;
 	    } else if (inBrackets == 0) {
-		Operator o = getOperator(expression, i);
+		Operator o = getOperator(frml, i);
 		if (o != null) {
 		    // if first operator or lower priority operator
 		    if ((operator == null) || (operator.getPriority() >= o.getPriority())) {
@@ -59,8 +67,8 @@ public class ExpressionNode extends Node<ExpressionNode> {
 
 	if (operator != null) {
 	    if (Operator.Type.Function.equals(operator.getType())) {
-		if (checkBrackets(expression.substring(operator.getName().length())) == 0) {
-		    String expSemOp = expression.substring(operator.getName().length());
+		if (checkBrackets(frml.substring(operator.getName().length())) == 0) {
+		    String expSemOp = frml.substring(operator.getName().length());
 		    String expSemBrackets = removeBrackets(expSemOp);
 		    List<String> splitExp = new ArrayList<>();
 		    int j = 0;
@@ -77,15 +85,15 @@ public class ExpressionNode extends Node<ExpressionNode> {
 		    }
 		    splitExp.add(expSemBrackets.substring(j));
 		    for (String exp : splitExp) {
-			addChild(new ExpressionNode(exp, this));
+			addChild(new Expression(exp, this));
 		    }
 		    return;
 		} else {
-		    throw new InvalidExpressionException("Error during parsing... missing brackets in " + expression);
+		    throw new InvalidExpressionException("Error during parsing... missing brackets in " + frml);
 		}
 	    } else if ((startOperator > 0) && (Operator.Type.Operator.equals(operator.getType()))) {
-		addChild(new ExpressionNode(expression.substring(0, startOperator), this));
-		addChild(new ExpressionNode(expression.substring(startOperator + operator.getName().length()), this));
+		addChild(new Expression(frml.substring(0, startOperator), this));
+		addChild(new Expression(frml.substring(startOperator + operator.getName().length()), this));
 	    }
 	}
     }
@@ -143,20 +151,26 @@ public class ExpressionNode extends Node<ExpressionNode> {
     }
 
     public Double evaluate() throws InvalidExpressionException {
+	init();
+
 	if (hasOperator()) {
 	    List<Double> values = new ArrayList<>();
-	    for (Node<ExpressionNode> node : getChildren()) {
+	    for (Node<Expression> node : getChildren()) {
 		Double result = node.getData().evaluate();
 		values.add(result);
 	    }
 	    setValue(getOperator().calculate(values));
 	} else if (!isLeaf() && (getValue() == null)) {
-	    throw new InvalidExpressionException(expression);
+	    throw new InvalidExpressionException(formula);
 	} else if (isLeaf() && (getValue() == null)) {
 	    throw new InvalidExpressionException("Variable '" + toString() + "' not found!");
 	}
 
 	return getValue();
+    }
+
+    public static Double evaluate(String formula) throws InvalidExpressionException {
+	return new Expression(formula).evaluate();
     }
 
     protected boolean hasOperator() {
@@ -167,7 +181,7 @@ public class ExpressionNode extends Node<ExpressionNode> {
 	return getChildren().get(0) != null;
     }
 
-    protected ExpressionNode getLeft() {
+    protected Expression getLeft() {
 	return getChildren().get(0).getData();
     }
 
@@ -175,7 +189,7 @@ public class ExpressionNode extends Node<ExpressionNode> {
 	return getChildren().get(1) != null;
     }
 
-    protected ExpressionNode getRight() {
+    protected Expression getRight() {
 	return getChildren().get(1).getData();
     }
 
@@ -220,15 +234,15 @@ public class ExpressionNode extends Node<ExpressionNode> {
 	return res;
     }
 
-    private Double getDouble(String s) {
-	if (s == null) {
+    private Double getDouble(String value) {
+	if (value == null) {
 	    return null;
 	}
 	try {
-	    return new Double(Double.parseDouble(s));
+	    return new Double(Double.parseDouble(value));
 	} catch (NumberFormatException nfe) {
-	    if (MathEvaluator.getVariables().containsKey(s)) {
-		return MathEvaluator.getVariables().get(s);
+	    if (variables.containsKey(value)) {
+		return variables.get(value);
 	    } else {
 		return null;
 	    }
@@ -241,7 +255,11 @@ public class ExpressionNode extends Node<ExpressionNode> {
 
     @Override
     public String toString() {
-	return expression;
+	return formula;
+    }
+
+    public void add(String variable, Double value) {
+	variables.put(variable, value);
     }
 
 }
