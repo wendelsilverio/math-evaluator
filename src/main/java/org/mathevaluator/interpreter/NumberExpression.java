@@ -1,12 +1,12 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import java.util.Map;
 
-public class NumberExp implements Expression {
+public class NumberExpression implements Expression {
 
     private Double value;
 
-    public NumberExp(Double value) {
+    public NumberExpression(Double value) {
 	this.value = value;
     }
 

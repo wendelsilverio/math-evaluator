@@ -6,10 +6,10 @@ import java.util.Map.Entry;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mathevaluator.core.Evaluator;
-import org.mathevaluator.core.Expression;
-import org.mathevaluator.core.InvalidExpressionException;
-import org.mathevaluator.core.NumberExp;
+import org.mathevaluator.interpreter.Evaluator;
+import org.mathevaluator.interpreter.Expression;
+import org.mathevaluator.interpreter.InvalidExpressionException;
+import org.mathevaluator.interpreter.NumberExpression;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +29,7 @@ public class FunctionController {
 		if(entry.getKey().equals("f") || entry.getValue().isEmpty()) {
 		    continue;
 		}
-		variables.put(entry.getKey(), new NumberExp(Double.valueOf(entry.getValue())));
+		variables.put(entry.getKey(), new NumberExpression(Double.valueOf(entry.getValue())));
 	    }
 
 	    json.append("result", evaluator.interpret(variables));

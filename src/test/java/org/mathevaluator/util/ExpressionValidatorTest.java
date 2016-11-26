@@ -1,7 +1,7 @@
 package org.mathevaluator.util;
 
 import org.junit.Test;
-import org.mathevaluator.core.InvalidExpressionException;
+import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class ExpressionValidatorTest {
 

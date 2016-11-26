@@ -1,4 +1,4 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import java.util.List;
 

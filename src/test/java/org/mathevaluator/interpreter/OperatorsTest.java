@@ -1,4 +1,4 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -6,6 +6,10 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.mathevaluator.interpreter.Evaluator;
+import org.mathevaluator.interpreter.Expression;
+import org.mathevaluator.interpreter.InvalidExpressionException;
+import org.mathevaluator.interpreter.NumberExpression;
 
 public class OperatorsTest {
 
@@ -27,7 +31,7 @@ public class OperatorsTest {
     @Test
     public void additionOneVariable() throws InvalidExpressionException {
 	HashMap<String, Expression> variables = new HashMap<>();
-	variables.put("a", new NumberExp(1.0));
+	variables.put("a", new NumberExpression(1.0));
 	assertEquals(2.0, new Evaluator("a + 1").interpret(variables), 1E-1);
     }
 
@@ -44,8 +48,8 @@ public class OperatorsTest {
     @Test
     public void additionTwoVariable() throws InvalidExpressionException {
 	HashMap<String, Expression> variables = new HashMap<>();
-	variables.put("a", new NumberExp(1.0));
-	variables.put("b", new NumberExp(3.0));
+	variables.put("a", new NumberExpression(1.0));
+	variables.put("b", new NumberExpression(3.0));
 	assertEquals(5.0, new Evaluator("a + 1 + b").interpret(variables), 1E-1);
     }
 
