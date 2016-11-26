@@ -1,10 +1,12 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.mathevaluator.interpreter.Evaluator;
+import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class FunctionsTest {
 

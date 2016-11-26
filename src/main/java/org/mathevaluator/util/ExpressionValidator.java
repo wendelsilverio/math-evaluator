@@ -2,7 +2,7 @@ package org.mathevaluator.util;
 
 import static org.springframework.util.StringUtils.countOccurrencesOf;
 
-import org.mathevaluator.core.InvalidExpressionException;
+import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class ExpressionValidator {
 

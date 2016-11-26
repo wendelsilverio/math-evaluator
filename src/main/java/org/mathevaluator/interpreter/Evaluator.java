@@ -1,4 +1,4 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import static org.mathevaluator.util.ExpressionCleaner.cleanParentheses;
 import static org.mathevaluator.util.ExpressionCleaner.cleanSpaces;
@@ -25,7 +25,7 @@ public class Evaluator implements Expression {
 	ExpressionValidator.validateParentheses(cleanedFormula);
 
 	try {
-	    expressionTree = new NumberExp(Double.parseDouble(cleanedFormula));
+	    expressionTree = new NumberExpression(Double.parseDouble(cleanedFormula));
 	} catch (NumberFormatException nfe) {
 	    if(variables.containsKey(cleanedFormula)) {
 		expressionTree = variables.get(cleanedFormula);
@@ -33,7 +33,7 @@ public class Evaluator implements Expression {
 	}
 
 	if(expressionTree == null) {
-	    expressionTree = new OperatorExp(cleanedFormula);
+	    expressionTree = new OperatorExpression(cleanedFormula);
 	}
 
 	return expressionTree.interpret(variables);

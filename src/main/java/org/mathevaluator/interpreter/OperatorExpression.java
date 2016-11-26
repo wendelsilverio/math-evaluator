@@ -1,4 +1,4 @@
-package org.mathevaluator.core;
+package org.mathevaluator.interpreter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,12 +6,12 @@ import java.util.Map;
 
 import org.mathevaluator.util.Node;
 
-public class OperatorExp extends Node<Expression> implements Expression {
+public class OperatorExpression extends Node<Expression> implements Expression {
 
     private Operator operator;
     private List<String> expressions;
 
-    public OperatorExp(String formula) throws InvalidExpressionException {
+    public OperatorExpression(String formula) throws InvalidExpressionException {
 	operator = OperatorFactory.getOperator(formula);
 
 	if(operator == null) {
