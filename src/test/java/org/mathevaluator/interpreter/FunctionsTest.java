@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 
 import org.junit.Test;
-import org.mathevaluator.interpreter.Evaluator;
-import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class FunctionsTest {
 
@@ -36,7 +34,7 @@ public class FunctionsTest {
     }
 
     @Test
-    public void squareRoot() throws InvalidExpressionException {
+    public void squareRoot() throws InvalidExpressionException  {
 	assertEquals(3.0, new Evaluator("sqrt(9)").interpret(new HashMap<>()), 1E-6);
     }
 }

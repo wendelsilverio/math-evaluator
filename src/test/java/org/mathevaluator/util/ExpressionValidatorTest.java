@@ -1,23 +1,25 @@
 package org.mathevaluator.util;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class ExpressionValidatorTest {
 
     @Test
-    public void parentheses() throws InvalidExpressionException {
-	ExpressionValidator.validateParentheses("(A)");
+    public void parentheses() {
+	assertTrue(ExpressionValidator.isValidParentheses("(A)"));
     }
 
-    @Test(expected=InvalidExpressionException.class)
-    public void invalidOpenParentheses() throws InvalidExpressionException {
-	ExpressionValidator.validateParentheses("A)");
+    @Test
+    public void invalidOpenParentheses() {
+	assertFalse(ExpressionValidator.isValidParentheses("A)"));
     }
 
-    @Test(expected=InvalidExpressionException.class)
-    public void invalidClosedParentheses() throws InvalidExpressionException {
-	ExpressionValidator.validateParentheses("(A");
+    @Test
+    public void invalidClosedParentheses() {
+	assertFalse(ExpressionValidator.isValidParentheses("(A"));
     }
 
 }

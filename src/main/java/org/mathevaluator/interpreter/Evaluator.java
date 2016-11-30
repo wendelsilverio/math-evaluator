@@ -2,46 +2,59 @@ package org.mathevaluator.interpreter;
 
 import static org.mathevaluator.util.ExpressionCleaner.cleanParentheses;
 import static org.mathevaluator.util.ExpressionCleaner.cleanSpaces;
+import static org.mathevaluator.util.ExpressionValidator.isValidParentheses;
 
 import java.util.Map;
 
-import org.mathevaluator.util.ExpressionValidator;
+import org.mathevaluator.formulas.FormulaExpression;
+import org.mathevaluator.formulas.FormulaRepository;
+import org.mathevaluator.operators.OperatorExpression;
 
 public class Evaluator implements Expression {
 
     private Expression expressionTree;
+    private String expression;
 
-    private String formula;
+    private FormulaRepository formulaRepository = new FormulaRepository();
 
-    public Evaluator(String formula) {
-	this.formula = formula;
+    public Evaluator(String expression) {
+	this.expression = expression;
     }
 
     @Override
-    public Double interpret(Map<String, Expression> variables) throws InvalidExpressionException {
-	String cleanedFormula = null;
-	cleanedFormula = cleanSpaces(formula);
-	cleanedFormula = cleanParentheses(cleanedFormula);
-	ExpressionValidator.validateParentheses(cleanedFormula);
-
-	try {
-	    expressionTree = new NumberExpression(Double.parseDouble(cleanedFormula));
-	} catch (NumberFormatException nfe) {
-	    if(variables.containsKey(cleanedFormula)) {
-		expressionTree = variables.get(cleanedFormula);
-	    }
+    public Double interpret(Map<String, Expression> variables) throws InvalidExpressionException  {
+	String cleanedExpression = null;
+	cleanedExpression = cleanSpaces(expression);
+	cleanedExpression = cleanParentheses(cleanedExpression);
+	if(!isValidParentheses(cleanedExpression)) {
+	    throw new InvalidExpressionException("Wrong number of parentheses in '" + expression + "'");
 	}
 
-	if(expressionTree == null) {
-	    expressionTree = new OperatorExpression(cleanedFormula);
+	if (isNumberExpression(cleanedExpression)) {
+	    expressionTree = new NumberExpression(Double.parseDouble(cleanedExpression));
+	} else if(variables.containsKey(cleanedExpression)) {
+	    expressionTree = variables.get(cleanedExpression);
+	} else if (formulaRepository.isFormula(cleanedExpression)) {
+	    expressionTree = new FormulaExpression(cleanedExpression);
+	} else {
+	    expressionTree = new OperatorExpression(cleanedExpression);
 	}
 
 	return expressionTree.interpret(variables);
     }
 
+    private boolean isNumberExpression(String formula) {
+	try {
+	    Double.parseDouble(formula);
+	} catch (NumberFormatException e) {
+	    return false;
+	}
+	return true;
+    }
+
     @Override
     public String toString() {
-	return "Evaluator [formula=" + formula + "]";
+	return "Evaluator [formula=" + expression + "]";
     }
 
 }
