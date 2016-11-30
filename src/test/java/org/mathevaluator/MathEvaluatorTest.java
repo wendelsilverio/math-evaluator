@@ -5,10 +5,21 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mathevaluator.formulas.Formula;
+import org.mathevaluator.formulas.FormulaRepository;
 import org.mathevaluator.interpreter.InvalidExpressionException;
 
 public class MathEvaluatorTest {
+
+    private FormulaRepository formulaRepository = new FormulaRepository();
+
+    @Before
+    public void setup() {
+        formulaRepository.save(new Formula("rectangleArea", "base*height", "base", "height"));
+        System.out.println(formulaRepository.getFileData());
+    }
 
     @Test
     public void additionOnlyNumbers() throws InvalidExpressionException {
