@@ -1,31 +1,37 @@
-package org.mathevaluator.interpreter;
+package org.mathevaluator.operators;
+
+import static org.mathevaluator.util.ExpressionValidator.isValidParentheses;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.mathevaluator.interpreter.InvalidExpressionException;
+
+
 public class OperatorFactory {
 
     private static List<Operator> operators;
 
-    protected static void initializeOperators() {
-	operators = new ArrayList<>();
-	operators.add(new Operator("+", Operator.Type.Operator, 0));
-	operators.add(new Operator("-", Operator.Type.Operator, 0));
-	operators.add(new Operator("*", Operator.Type.Operator, 10));
-	operators.add(new Operator("/", Operator.Type.Operator, 10));
-	operators.add(new Operator("sin", Operator.Type.Function, 20));
-	operators.add(new Operator("cos", Operator.Type.Function, 20));
-	operators.add(new Operator("tan", Operator.Type.Function, 20));
-	operators.add(new Operator("exp", Operator.Type.Function, 20));
-	operators.add(new Operator("log", Operator.Type.Function, 20));
-	operators.add(new Operator("^", Operator.Type.Operator, 12));
-	operators.add(new Operator("sqrt", Operator.Type.Function, 20));
+    static {
+	if(operators == null) {
+	    operators = new ArrayList<>();
+	    operators.add(new Operator("+", Operator.Type.Operator, 1));
+	    operators.add(new Operator("-", Operator.Type.Operator, 1));
+	    operators.add(new Operator("*", Operator.Type.Operator, 2));
+	    operators.add(new Operator("/", Operator.Type.Operator, 2));
+	    operators.add(new Operator("sin", Operator.Type.Function, 4));
+	    operators.add(new Operator("cos", Operator.Type.Function, 4));
+	    operators.add(new Operator("tan", Operator.Type.Function, 4));
+	    operators.add(new Operator("exp", Operator.Type.Function, 4));
+	    operators.add(new Operator("log", Operator.Type.Function, 4));
+	    operators.add(new Operator("^", Operator.Type.Operator, 3));
+	    operators.add(new Operator("sqrt", Operator.Type.Function, 4));
+	}
     }
 
     static Operator getOperator(String s, int start) {
-	List<Operator> operators = OperatorFactory.getOperators();
 	Operator operat = null;
 	int indexOp = Integer.MAX_VALUE;
 	for (Operator operator : operators) {
@@ -73,7 +79,7 @@ public class OperatorFactory {
 	List<String> expressions = new ArrayList<>();
 	if (operator != null) {
 	    if (Operator.Type.Function.equals(operator.getType())) {
-		if (checkBrackets(formula.substring(operator.getName().length())) != 0) {
+		if (isValidParentheses(formula.substring(operator.getName().length()))) {
 		    throw new InvalidExpressionException("Error during parsing... missing brackets in " + formula);
 		}
 		String expSemOp = formula.substring(operator.getName().length());
@@ -103,26 +109,10 @@ public class OperatorFactory {
 	return expressions;
     }
 
-    protected static int checkBrackets(String s) {
-	int sLength = s.length();
-	int inBracket = 0;
-
-	for (int i = 0; i < sLength; i++) {
-	    if ((s.charAt(i) == '(') && (inBracket >= 0)) {
-		inBracket++;
-	    } else if (s.charAt(i) == ')') {
-		inBracket--;
-	    }
-	}
-
-	return inBracket;
-    }
-
-
     public static String removeBrackets(String s) {
 	String res = s;
 	if ((s.length() > 2) && res.startsWith("(") && res.endsWith(")")
-		&& (checkBrackets(s.substring(1, s.length() - 1)) == 0)) {
+		&& (isValidParentheses(s.substring(1, s.length() - 1)))) {
 	    res = res.substring(1, res.length() - 1);
 	}
 	if (!res.equals(s)) {
@@ -130,13 +120,6 @@ public class OperatorFactory {
 	} else {
 	    return res;
 	}
-    }
-
-    public static List<Operator> getOperators() {
-	if(operators == null) {
-	    initializeOperators();
-	}
-	return operators;
     }
 
     public static Operator getOperator(String formula) throws InvalidExpressionException {
@@ -162,19 +145,19 @@ public class OperatorFactory {
 	return operator;
     }
 
-    public static List<String> getExpressions(String formula, Operator operator) throws InvalidExpressionException {
+    public static List<String> getExpressions(String expression, Operator operator) throws InvalidExpressionException {
 
 	int inBrackets = 0;
 
-	int startOperator = getStartOperatorIndex(formula, operator);
+	int startOperator = getStartOperatorIndex(expression, operator);
 
 	List<String> expressions = new ArrayList<>();
 	if (operator != null) {
 	    if (Operator.Type.Function.equals(operator.getType())) {
-		if (checkBrackets(formula.substring(operator.getName().length())) != 0) {
-		    throw new InvalidExpressionException("Error during parsing... missing brackets in " + formula);
+		if (!isValidParentheses(expression.substring(operator.getName().length()))) {
+		    throw new InvalidExpressionException("Error during parsing... missing brackets in " + expression);
 		}
-		String expSemOp = formula.substring(operator.getName().length());
+		String expSemOp = expression.substring(operator.getName().length());
 		String expSemBrackets = removeBrackets(expSemOp);
 		List<String> splitExp = new ArrayList<>();
 		int j = 0;
@@ -194,8 +177,8 @@ public class OperatorFactory {
 		    expressions.add(exp);
 		}
 	    } else if ((startOperator > 0) && (Operator.Type.Operator.equals(operator.getType()))) {
-		expressions.add(formula.substring(0, startOperator));
-		expressions.add(formula.substring(startOperator + operator.getName().length()));
+		expressions.add(expression.substring(0, startOperator));
+		expressions.add(expression.substring(startOperator + operator.getName().length()));
 	    }
 	}
 	return expressions;

@@ -1,7 +1,8 @@
-package org.mathevaluator.api;
+package org.mathevaluator.formulas;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
+import org.json.JSONArray;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +13,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
-public class FunctionControllerTest {
+public class FormulaControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private FormulaRepository formulaRepository = new FormulaRepository();
+
     @Test
-    public void f() {
-	String body = restTemplate.getForObject("/?f=1+1", String.class);
-	assertThat(body).isEqualTo("{\"result\":[2]}");
+    public void formulas() {
+	String body = restTemplate.getForObject("/formulas", String.class);
+	JSONArray jsonArray = new JSONArray(body);
+	assertEquals(3, jsonArray.toList().size());
     }
 
     @Test
-    public void fWithVariables() {
-	String body = restTemplate.getForObject("/?f=a+b&a=2&b=3", String.class);
-	assertThat(body).isEqualTo("{\"result\":[5]}");
+    public void addFormula() {
+	restTemplate.put("/formula", new Formula("squareArea","side^2","side"));
     }
 
 }

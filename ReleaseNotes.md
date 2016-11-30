@@ -1,6 +1,8 @@
 # RELEASE NOTES
 
 ## Version 0.2.0
+- Define formula and save it. Ex: area(base, height) = base * height
+- Created MathEvaluator Helper that process the expressions
 - Calculate variable as expression. Ex: A + 1 A=B+C and B=2 and C=3
 
 ## Version 0.1.0
@@ -8,6 +10,10 @@
 - Trigonometric functions (sine, cosine, tangent)
 - Algebra functions (exp, log, pow, sqrt)
 - Request function with variables
+
+## Next version
+- Use MathEvaluator as command line
+- Define result by equals (=). Ex: X = 1 + 1 The result X = 1 
 
 ------------------------------------------------------------
 See [Semantic Versioning](http://semver.org/) 

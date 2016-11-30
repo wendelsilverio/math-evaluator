@@ -10,17 +10,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 public class MathEvaluatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MathEvaluatorApplication.class, args);
-	}
+    public static void main(String[] args) {
+	SpringApplication.run(MathEvaluatorApplication.class, args);
+    }
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/").allowedOrigins("*");
-			}
-		};
-	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+	return new WebMvcConfigurerAdapter() {
+	    @Override
+	    public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/").allowedOrigins("*");
+	    }
+	};
+    }
 }
