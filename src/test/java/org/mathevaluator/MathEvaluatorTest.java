@@ -22,7 +22,7 @@ public class MathEvaluatorTest {
         assertEquals(2.0, MathEvaluator.evaluate("A + 1", variables).get("A + 1"), 1E-1);
     }
 
-    //    @Test
+    @Test
     public void rectangleArea() throws InvalidExpressionException {
         Map<String, String> variables = new HashMap<>();
         variables.put("base", "2");
@@ -30,7 +30,7 @@ public class MathEvaluatorTest {
         assertEquals(6.0, MathEvaluator.evaluate("rectangleArea(base,height)", variables).get("rectangleArea(base,height)"), 1E-1);
     }
 
-    //    @Test
+    @Test
     public void rectangleAreaAlias() throws InvalidExpressionException {
         Map<String, String> variables = new HashMap<>();
         variables.put("A", "3");
@@ -38,7 +38,7 @@ public class MathEvaluatorTest {
         assertEquals(15.0, MathEvaluator.evaluate("rectangleArea(A,B) + 3", variables).get("rectangleArea(A,B) + 3"), 1E-1);
     }
 
-    //    @Test
+    @Test
     public void rectangleAreaWithoutVariable() throws InvalidExpressionException {
         assertEquals(11.0, MathEvaluator.evaluate("rectangleArea(2,4) + 3").get("rectangleArea(2,4) + 3"), 1E-1);
     }

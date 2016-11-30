@@ -14,31 +14,34 @@ public class FormulaRepository {
     private File fileData = new File(System.getProperty("user.dir") + "/data/formulas.ser");
 
     public FormulaRepository() {
-	if (!fileData.exists()) {
-	    fileData.getParentFile().mkdirs();
-	}
-	formulas = Serializator.unserialize(fileData);
-	if (formulas == null) {
-	    formulas = new HashSet<>();
-	}
+        if (!fileData.exists()) {
+            fileData.getParentFile().mkdirs();
+        }
+        formulas = Serializator.unserialize(fileData);
+        if (formulas == null) {
+            formulas = new HashSet<>();
+        }
     }
 
     public void save(Formula formula) {
-	formulas.add(formula);
-	Serializator.serialize(formulas, fileData);
+        formulas.add(formula);
+        if (!fileData.exists()) {
+            fileData.getParentFile().mkdirs();
+        }
+        Serializator.serialize(formulas, fileData);
     }
 
     public boolean isFormula(String expression) {
-	return formulas.stream().filter(f -> expression.startsWith(f.getName() + "(") && expression.endsWith(")"))
-		.collect(toList()).size() > 0;
+        return formulas.stream().filter(f -> expression.startsWith(f.getName() + "(") && expression.endsWith(")"))
+                .collect(toList()).size() > 0;
     }
 
     public Set<Formula> getFormulas() {
-	return formulas;
+        return formulas;
     }
 
     public File getFileData() {
-	return fileData;
+        return fileData;
     }
 
 }
