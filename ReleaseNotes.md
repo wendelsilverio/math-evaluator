@@ -1,6 +1,9 @@
 # RELEASE NOTES
 
 ## Version 0.2.0
+- Define one variable as numeric array. Ex: A+1 | A=[1,2,3]. The result will be [2,3,4]
+
+## Version 0.2.0
 - Define formula and save it. Ex: area(base, height) = base * height
 - Created MathEvaluator Helper that process the expressions
 - Calculate variable as expression. Ex: A + 1 A=B+C and B=2 and C=3
