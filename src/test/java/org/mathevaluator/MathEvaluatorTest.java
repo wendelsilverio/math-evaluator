@@ -61,4 +61,18 @@ public class MathEvaluatorTest {
         assertEquals("[2.0,3.0,4.0]", MathEvaluator.evaluate("A+1", variables).get("A+1"));
     }
 
+    @Test
+    public void secondDegree() throws InvalidExpressionException {
+        Map<String, String> variables = new HashMap<>();
+        variables.put("x", "[1,2,3]");
+        assertEquals("[4.0,9.0,16.0]", MathEvaluator.evaluate("x^2 + 2*x + 1", variables).get("x^2 + 2*x + 1"));
+    }
+
+    @Test
+    public void sqrtOfArray() throws InvalidExpressionException {
+        Map<String, String> variables = new HashMap<>();
+        variables.put("x", "[4,9,16]");
+        assertEquals("[2.0,3.0,4.0]", MathEvaluator.evaluate("sqrt(x)", variables).get("sqrt(x)"));
+    }
+
 }

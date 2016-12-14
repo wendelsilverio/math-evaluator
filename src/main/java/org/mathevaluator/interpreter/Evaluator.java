@@ -18,43 +18,49 @@ public class Evaluator implements Expression {
     private FormulaRepository formulaRepository = new FormulaRepository();
 
     public Evaluator(String expression) {
-	this.expression = expression;
+        this.expression = expression;
     }
 
     @Override
     public Double interpret(Map<String, Expression> variables) throws InvalidExpressionException  {
-	String cleanedExpression = null;
-	cleanedExpression = cleanSpaces(expression);
-	cleanedExpression = cleanParentheses(cleanedExpression);
-	if(!isValidParentheses(cleanedExpression)) {
-	    throw new InvalidExpressionException("Wrong number of parentheses in '" + expression + "'");
-	}
+        String cleanedExpression = null;
+        cleanedExpression = cleanSpaces(expression);
+        cleanedExpression = cleanParentheses(cleanedExpression);
+        if(!isValidParentheses(cleanedExpression)) {
+            throw new InvalidExpressionException("Wrong number of parentheses in '" + expression + "'");
+        }
 
-	if (isNumberExpression(cleanedExpression)) {
-	    expressionTree = new NumberExpression(Double.parseDouble(cleanedExpression));
-	} else if(variables.containsKey(cleanedExpression)) {
-	    expressionTree = variables.get(cleanedExpression);
-	} else if (formulaRepository.isFormula(cleanedExpression)) {
-	    expressionTree = new FormulaExpression(cleanedExpression);
-	} else {
-	    expressionTree = new OperatorExpression(cleanedExpression);
-	}
+        if (isNumberExpression(cleanedExpression)) {
+            expressionTree = new NumberExpression(Double.parseDouble(cleanedExpression));
+        } else if(variables.containsKey(cleanedExpression)) {
+            expressionTree = variables.get(cleanedExpression);
+        } else if (formulaRepository.isFormula(cleanedExpression)) {
+            expressionTree = new FormulaExpression(cleanedExpression);
+        } else if (isLatexExpression(cleanedExpression)) {
+            expressionTree = new OperatorExpression(cleanedExpression.replaceAll("\\$", ""));
+        } else {
+            expressionTree = new OperatorExpression(cleanedExpression);
+        }
 
-	return expressionTree.interpret(variables);
+        return expressionTree.interpret(variables);
+    }
+
+    private boolean isLatexExpression(String cleanedExpression) {
+        return cleanedExpression.startsWith("$") && cleanedExpression.endsWith("$");
     }
 
     private boolean isNumberExpression(String formula) {
-	try {
-	    Double.parseDouble(formula);
-	} catch (NumberFormatException e) {
-	    return false;
-	}
-	return true;
+        try {
+            Double.parseDouble(formula);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "Evaluator [formula=" + expression + "]";
+        return "Evaluator [formula=" + expression + "]";
     }
 
 }
