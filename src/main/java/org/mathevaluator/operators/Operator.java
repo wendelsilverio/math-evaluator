@@ -20,32 +20,58 @@ public class Operator {
 
     public Double calculate(List<Double> values) {
         Double res = null;
-        if ("+".equals(name) || "plus".equals(name)) {
+
+        switch (name) {
+        case "+":
+        case "plus":
             res = values.get(0) + values.get(1);
-        } else if ("-".equals(name) || "minus".equals(name)) {
+            break;
+        case "-":
+        case "minus":
             res = values.get(0) - values.get(1);
-        } else if ("*".equals(name) || "×".equals(name) || "⦁".equals(name) || "times".equals(name) || "\\times".equals(name)) {
+            break;
+        case "*":
+        case "×":
+        case "⦁":
+        case "times":
+        case "\\times":
             res = values.get(0) * values.get(1);
-        } else if ("/".equals(name) || "÷".equals(name) || "rdivide".equals(name) || "\\div".equals(name)) {
+            break;
+        case "/":
+        case "÷":
+        case "rdivide":
+        case "\\div":
             if ((values.get(0) == 0.0) && (values.get(1) == 0.0)) {
                 res = 0.0;
             } else {
                 res = values.get(0) / values.get(1);
             }
-        } else if ("^".equals(name)) {
+            break;
+        case "^":
             res = StrictMath.pow(values.get(0), values.get(1));
-        } else if ("cos".equals(name)) {
+            break;
+        case "cos":
             res = StrictMath.cos(values.get(0));
-        } else if ("sin".equals(name)) {
+            break;
+        case "sin":
             res = StrictMath.sin(values.get(0));
-        } else if ("tan".equals(name)) {
+            break;
+        case "tan":
             res = StrictMath.tan(values.get(0));
-        } else if ("sqrt".equals(name) || "√".equals(name) || "\\sqrt".equals(name)) {
+            break;
+        case "sqrt":
+        case "√":
+        case "\\sqrt":
             res = StrictMath.sqrt(values.get(0));
-        } else if ("log".equals(name)) {
+            break;
+        case "log":
             res = StrictMath.log(values.get(0));
-        } else if ("exp".equals(name)) {
+            break;
+        case "exp":
             res = StrictMath.exp(values.get(0).doubleValue());
+            break;
+        default:
+            break;
         }
 
         return res;
