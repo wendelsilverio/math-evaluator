@@ -1,6 +1,13 @@
-# math-evaluator [![Build Status](https://travis-ci.org/wendelsilverio/math-evaluator.svg?branch=master)](https://travis-ci.org/wendelsilverio/math-evaluator)
-Math SaaS
+# Welcome to the math-evaluator [![Build Status](https://travis-ci.org/wendelsilverio/math-evaluator.svg?branch=master)](https://travis-ci.org/wendelsilverio/math-evaluator)
 
-API criada na disciplina *CAP-389-3 Projeto Ágil de Software* do curso de *Computação Aplicada* do INPE.
+The math-evaluator is a API to math calculate!
 
-https://wendelsilverio.github.io/math-evaluator/
+## To calculate
+
+You can combine operators, functions and group calculate with ( ) . Example:
+
+> f = 2 * (1 + 3) - 5/2
+
+> f = sqrt(5+4)
+
+> f = 2*(4/(2+4))
