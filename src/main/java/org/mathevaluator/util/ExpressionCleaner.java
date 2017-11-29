@@ -1,7 +1,5 @@
 package org.mathevaluator.util;
 
-import static org.springframework.util.StringUtils.countOccurrencesOf;
-
 public class ExpressionCleaner {
 
     public static String cleanSpaces(String expression) {
@@ -19,7 +17,7 @@ public class ExpressionCleaner {
     public static String cleanDelimiter(String expression, String delimiterBegin, String delimiterEnd) {
         String f = expression;
         if ((expression.length() > 2) && f.startsWith(delimiterBegin) && f.endsWith(delimiterEnd)
-                && countOccurrencesOf(expression, delimiterBegin) == countOccurrencesOf(expression, delimiterEnd)) {
+                && expression.chars().filter(ch->ch == delimiterBegin.charAt(0)).count() == expression.chars().filter(ch->ch==delimiterEnd.charAt(0)).count()) {
             f = f.substring(1, f.length() - 1);
         }
         if (!f.equals(expression)) {

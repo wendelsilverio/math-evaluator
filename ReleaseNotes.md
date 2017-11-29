@@ -1,5 +1,13 @@
 # RELEASE NOTES
 
+## Version 0.4.0
+- Removed webservice module
+- Removed formula repository module
+- Removed Latex evaluate module
+- Removed Mathlab evaluate module
+- Removed Unicode evaluate module
+- Removed operators, only functions. Ex: 1+1 = 2 equals sum(1,1)
+
 ## Version 0.3.0
 - Define one variable as numeric array. Ex: A+1 | A=[1,2,3]. The result will be [2,3,4]
 - Calculate with unicode characters. Ex: 2÷2

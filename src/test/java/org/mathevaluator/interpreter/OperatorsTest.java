@@ -41,7 +41,7 @@ public class OperatorsTest {
 
     @Test
     public void potency() throws InvalidExpressionException {
-	assertEquals(4.0, new Evaluator("2^2").interpret(new HashMap<>()), 1E-1);
+	assertEquals(4.0, new Evaluator("pow(2,2)").interpret(new HashMap<>()), 1E-1);
     }
 
 }

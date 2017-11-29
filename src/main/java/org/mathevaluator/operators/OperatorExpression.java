@@ -14,22 +14,22 @@ public class OperatorExpression implements Expression {
     private List<String> expressions;
 
     public OperatorExpression(String expression) throws InvalidExpressionException {
-	operator = OperatorFactory.getOperator(expression);
+        operator = OperatorFactory.getOperator(expression);
 
-	if(operator == null) {
-	    throw new InvalidExpressionException(expression);
-	}
+        if (operator == null) {
+            throw new InvalidExpressionException(expression);
+        }
 
-	expressions = OperatorFactory.getExpressions(expression, operator);
+        expressions = OperatorFactory.getExpressions(expression, operator);
     }
 
     @Override
     public Double interpret(Map<String, Expression> variables) throws InvalidExpressionException {
-	List<Double> values = new ArrayList<>();
-	for (String expression : expressions) {
-	    values.add(new Evaluator(expression).interpret(variables));
-	}
-	return operator.calculate(values);
+        List<Double> values = new ArrayList<>();
+        for (String expression : expressions) {
+            values.add(new Evaluator(expression).interpret(variables));
+        }
+        return operator.calculate(values);
     }
 
 }

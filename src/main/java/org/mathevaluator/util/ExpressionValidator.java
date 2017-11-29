@@ -1,11 +1,9 @@
 package org.mathevaluator.util;
 
-import static org.springframework.util.StringUtils.countOccurrencesOf;
-
 public class ExpressionValidator {
 
     public static boolean isValidParentheses(String expression) {
-	return countOccurrencesOf(expression, "(") == countOccurrencesOf(expression, ")");
+        return expression.chars().filter(ch -> ch == '(').count() == expression.chars().filter(ch -> ch == ')').count();
     }
 
 }

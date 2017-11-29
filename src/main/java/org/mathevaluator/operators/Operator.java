@@ -1,8 +1,10 @@
 package org.mathevaluator.operators;
 
+import org.mathevaluator.functions.Function;
+
 import java.util.List;
 
-public class Operator {
+public class Operator implements Function {
 
     public enum Type {
         Operator, Function;
@@ -11,6 +13,12 @@ public class Operator {
     private final String name;
     private final Type type;
     private final int priority;
+
+    public Operator(String name, int priority) {
+        this.name = name;
+        this.type = name.length() > 1 ? Type.Function : Type.Operator;
+        this.priority = priority;
+    }
 
     public Operator(String name, Type type, int priority) {
         this.name = name;
@@ -22,56 +30,41 @@ public class Operator {
         Double res = null;
 
         switch (name) {
-        case "+":
-        case "plus":
-            res = values.get(0) + values.get(1);
-            break;
-        case "-":
-        case "minus":
-            res = values.get(0) - values.get(1);
-            break;
-        case "*":
-        case "×":
-        case "⦁":
-        case "times":
-        case "\\times":
-            res = values.get(0) * values.get(1);
-            break;
-        case "/":
-        case "÷":
-        case "rdivide":
-        case "\\div":
-            if ((values.get(0) == 0.0) && (values.get(1) == 0.0)) {
-                res = 0.0;
-            } else {
-                res = values.get(0) / values.get(1);
-            }
-            break;
-        case "^":
-            res = StrictMath.pow(values.get(0), values.get(1));
-            break;
-        case "cos":
-            res = StrictMath.cos(values.get(0));
-            break;
-        case "sin":
-            res = StrictMath.sin(values.get(0));
-            break;
-        case "tan":
-            res = StrictMath.tan(values.get(0));
-            break;
-        case "sqrt":
-        case "√":
-        case "\\sqrt":
-            res = StrictMath.sqrt(values.get(0));
-            break;
-        case "log":
-            res = StrictMath.log(values.get(0));
-            break;
-        case "exp":
-            res = StrictMath.exp(values.get(0).doubleValue());
-            break;
-        default:
-            break;
+            case "*":
+                res = values.get(0) * values.get(1);
+                break;
+            case "/":
+                if ((values.get(0) == 0.0) && (values.get(1) == 0.0)) {
+                    res = 0.0;
+                } else {
+                    res = values.get(0) / values.get(1);
+                }
+                break;
+            case "^":
+            case "pow":
+                res = StrictMath.pow(values.get(0), values.get(1));
+                break;
+            case "cos":
+                res = StrictMath.cos(values.get(0));
+                break;
+            case "sin":
+                res = StrictMath.sin(values.get(0));
+                break;
+            case "tan":
+                res = StrictMath.tan(values.get(0));
+                break;
+            case "sqrt":
+            case "√":
+                res = StrictMath.sqrt(values.get(0));
+                break;
+            case "log":
+                res = StrictMath.log(values.get(0));
+                break;
+            case "exp":
+                res = StrictMath.exp(values.get(0).doubleValue());
+                break;
+            default:
+                break;
         }
 
         return res;

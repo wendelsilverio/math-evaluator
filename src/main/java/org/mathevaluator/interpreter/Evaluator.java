@@ -6,16 +6,12 @@ import static org.mathevaluator.util.ExpressionValidator.isValidParentheses;
 
 import java.util.Map;
 
-import org.mathevaluator.formulas.FormulaExpression;
-import org.mathevaluator.formulas.FormulaRepository;
 import org.mathevaluator.operators.OperatorExpression;
 
 public class Evaluator implements Expression {
 
     private Expression expressionTree;
     private String expression;
-
-    private FormulaRepository formulaRepository = new FormulaRepository();
 
     public Evaluator(String expression) {
         this.expression = expression;
@@ -34,8 +30,6 @@ public class Evaluator implements Expression {
             expressionTree = new NumberExpression(Double.parseDouble(cleanedExpression));
         } else if(variables.containsKey(cleanedExpression)) {
             expressionTree = variables.get(cleanedExpression);
-        } else if (formulaRepository.isFormula(cleanedExpression)) {
-            expressionTree = new FormulaExpression(cleanedExpression);
         } else if (isLatexExpression(cleanedExpression)) {
             expressionTree = new OperatorExpression(cleanedExpression.replaceAll("\\$", ""));
         } else {
