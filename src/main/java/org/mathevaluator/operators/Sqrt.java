@@ -12,4 +12,9 @@ public class Sqrt extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.sqrt(values.get(0));
     }
+
+    @Override
+    public String getName() {
+        return "sqrt";
+    }
 }

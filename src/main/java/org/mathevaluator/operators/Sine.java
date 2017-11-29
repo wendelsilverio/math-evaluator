@@ -12,4 +12,9 @@ public class Sine extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.cos(values.get(0));
     }
+
+    @Override
+    public String getName() {
+        return "sin";
+    }
 }

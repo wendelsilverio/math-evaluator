@@ -2,7 +2,7 @@ package org.mathevaluator.operators;
 
 import java.util.List;
 
-public class Operator {
+public abstract class Operator {
 
     public enum Type {
         Operator, Function;
@@ -18,57 +18,9 @@ public class Operator {
         this.priority = priority;
     }
 
-    public Double calculate(List<Double> values) {
-        Double res = null;
+    public abstract Double calculate(List<Double> values);
 
-        switch (name) {
-//            case "+":
-//                res = values.get(0) + values.get(1);
-//                break;
-//            case "-":
-//                res = values.get(0) - values.get(1);
-//                break;
-//            case "*":
-//                res = values.get(0) * values.get(1);
-//                break;
-//            case "/":
-//                if ((values.get(0) == 0.0) && (values.get(1) == 0.0)) {
-//                    res = 0.0;
-//                } else {
-//                    res = values.get(0) / values.get(1);
-//                }
-//                break;
-//            case "pow":
-//                res = StrictMath.pow(values.get(0), values.get(1));
-//                break;
-//            case "cos":
-//                res = StrictMath.cos(values.get(0));
-//                break;
-//            case "sin":
-//                res = StrictMath.sin(values.get(0));
-//                break;
-//            case "tan":
-//                res = StrictMath.tan(values.get(0));
-//                break;
-//            case "sqrt":
-//                res = StrictMath.sqrt(values.get(0));
-//                break;
-//            case "log":
-//                res = StrictMath.log(values.get(0));
-//                break;
-//            case "exp":
-//                res = StrictMath.exp(values.get(0).doubleValue());
-//                break;
-            default:
-                break;
-        }
-
-        return res;
-    }
-
-    public String getName() {
-        return name;
-    }
+    public abstract String getName();
 
     public Type getType() {
         return type;

@@ -12,4 +12,9 @@ public class Cosine extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.cos(values.get(0));
     }
+
+    @Override
+    public String getName() {
+        return "cos";
+    }
 }

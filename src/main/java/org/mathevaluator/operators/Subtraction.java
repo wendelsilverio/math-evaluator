@@ -12,4 +12,9 @@ public class Subtraction extends Operator {
     public Double calculate(List<Double> values) {
         return values.get(0) - values.get(1);
     }
+
+    @Override
+    public String getName() {
+        return "-";
+    }
 }

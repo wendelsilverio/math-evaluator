@@ -16,4 +16,9 @@ public class Division extends Operator {
             return values.get(0) / values.get(1);
         }
     }
+
+    @Override
+    public String getName() {
+        return "/";
+    }
 }

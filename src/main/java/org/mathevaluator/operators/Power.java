@@ -12,4 +12,9 @@ public class Power extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.pow(values.get(0), values.get(1));
     }
+
+    @Override
+    public String getName() {
+        return "pow";
+    }
 }

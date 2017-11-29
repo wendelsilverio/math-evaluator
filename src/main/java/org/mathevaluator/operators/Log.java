@@ -11,4 +11,9 @@ public class Log extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.log(values.get(0));
     }
+
+    @Override
+    public String getName() {
+        return "log";
+    }
 }

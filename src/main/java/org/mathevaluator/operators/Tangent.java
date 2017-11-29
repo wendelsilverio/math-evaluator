@@ -12,4 +12,9 @@ public class Tangent extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.tan(values.get(0));
     }
+
+    @Override
+    public String getName() {
+        return "tan";
+    }
 }

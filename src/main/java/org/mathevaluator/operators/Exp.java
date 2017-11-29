@@ -11,4 +11,9 @@ public class Exp extends Operator {
     public Double calculate(List<Double> values) {
         return StrictMath.exp(values.get(0).doubleValue());
     }
+
+    @Override
+    public String getName() {
+        return "exp";
+    }
 }
