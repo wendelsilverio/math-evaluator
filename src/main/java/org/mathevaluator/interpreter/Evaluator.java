@@ -20,8 +20,10 @@ public class Evaluator implements Expression {
     @Override
     public Double interpret(Map<String, Expression> variables) throws InvalidExpressionException  {
         String cleanedExpression = null;
+
         cleanedExpression = cleanSpaces(expression);
         cleanedExpression = cleanParentheses(cleanedExpression);
+
         if(!isValidParentheses(cleanedExpression)) {
             throw new InvalidExpressionException("Wrong number of parentheses in '" + expression + "'");
         }
@@ -30,8 +32,6 @@ public class Evaluator implements Expression {
             expressionTree = new NumberExpression(Double.parseDouble(cleanedExpression));
         } else if(variables.containsKey(cleanedExpression)) {
             expressionTree = variables.get(cleanedExpression);
-        } else if (isLatexExpression(cleanedExpression)) {
-            expressionTree = new OperatorExpression(cleanedExpression.replaceAll("\\$", ""));
         } else {
             expressionTree = new OperatorExpression(cleanedExpression);
         }

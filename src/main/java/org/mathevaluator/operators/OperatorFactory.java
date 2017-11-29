@@ -17,21 +17,30 @@ public class OperatorFactory {
     static {
         if (operators == null) {
             operators = new ArrayList<>();
-            operators.add(new Operator("+", Operator.Type.Operator, 1));
-            operators.add(new Operator("-", Operator.Type.Operator, 1));
-            operators.add(new Operator("*", Operator.Type.Operator, 2));
-            operators.add(new Operator("/", Operator.Type.Operator, 2));
-            operators.add(new Operator("^", 3));
-            operators.add(new Operator("sin", Operator.Type.Function, 4));
-            operators.add(new Operator("cos", Operator.Type.Function, 4));
-            operators.add(new Operator("tan", Operator.Type.Function, 4));
-            operators.add(new Operator("exp", Operator.Type.Function, 4));
-            operators.add(new Operator("log", Operator.Type.Function, 4));
-            operators.add(new Operator("pow", 4));
-            operators.add(new Operator("sqrt", Operator.Type.Function, 4));
+            operators.add(new Addition());
+            operators.add(new Subtraction());
+            operators.add(new Multiplication());
+            operators.add(new Division());
+            operators.add(new Power());
+            operators.add(new Sine());
+            operators.add(new Cosine());
+            operators.add(new Tangent());
+            operators.add(new Exp());
+            operators.add(new Log());
+            operators.add(new Sqrt());
+//            operators.add(new Operator("+", Operator.Type.Operator, 1));
+//            operators.add(new Operator("-", Operator.Type.Operator, 1));
+//            operators.add(new Operator("*", Operator.Type.Operator, 2));
+//            operators.add(new Operator("/", Operator.Type.Operator, 2));
+//            operators.add(new Operator("^", Operator.Type.Operator, 3));
+//            operators.add(new Operator("pow", Operator.Type.Function, 4));
+//            operators.add(new Operator("sin", Operator.Type.Function, 4));
+//            operators.add(new Operator("cos", Operator.Type.Function, 4));
+//            operators.add(new Operator("tan", Operator.Type.Function, 4));
+//            operators.add(new Operator("exp", Operator.Type.Function, 4));
+//            operators.add(new Operator("log", Operator.Type.Function, 4));
+//            operators.add(new Operator("sqrt", Operator.Type.Function, 4));
 
-            /* Unicode operators */
-            operators.add(new Operator("√", Operator.Type.Operator, -1));
         }
     }
 

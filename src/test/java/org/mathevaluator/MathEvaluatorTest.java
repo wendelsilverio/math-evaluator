@@ -33,7 +33,7 @@ public class MathEvaluatorTest {
     public void secondDegree() throws InvalidExpressionException {
         Map<String, String> variables = new HashMap<>();
         variables.put("x", "[1,2,3]");
-        assertEquals("[4.0,9.0,16.0]", MathEvaluator.evaluate("x^2 + 2*x + 1", variables).get("x^2 + 2*x + 1"));
+        assertEquals("[4.0,9.0,16.0]", MathEvaluator.evaluate("pow(x,2) + 2*x + 1", variables).get("pow(x,2) + 2*x + 1"));
     }
 
     @Test
