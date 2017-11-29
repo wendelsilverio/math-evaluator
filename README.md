@@ -1,4 +1,4 @@
-# Welcome to the math-evaluator [![Build Status](https://travis-ci.org/wendelsilverio/math-evaluator.svg?branch=master)](https://travis-ci.org/wendelsilverio/math-evaluator)
+# Welcome to the math-evaluator
 
 The math-evaluator is a API to math calculate!
 
