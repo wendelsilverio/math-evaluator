@@ -30,6 +30,12 @@ public class Operator implements Function {
         Double res = null;
 
         switch (name) {
+            case "+":
+                res = values.get(0) + values.get(1);
+                break;
+            case "-":
+                res = values.get(0) - values.get(1);
+                break;
             case "*":
                 res = values.get(0) * values.get(1);
                 break;

@@ -17,10 +17,10 @@ public class OperatorFactory {
     static {
         if (operators == null) {
             operators = new ArrayList<>();
-            operators.add(new Addition("+"));
-            operators.add(new Subtraction("-"));
-            operators.add(new Multiplication("*"));
-            operators.add(new Division("/"));
+            operators.add(new Operator("+", Operator.Type.Operator, 1));
+            operators.add(new Operator("-", Operator.Type.Operator, 1));
+            operators.add(new Operator("*", Operator.Type.Operator, 2));
+            operators.add(new Operator("/", Operator.Type.Operator, 2));
             operators.add(new Operator("^", 3));
             operators.add(new Operator("sin", Operator.Type.Function, 4));
             operators.add(new Operator("cos", Operator.Type.Function, 4));
