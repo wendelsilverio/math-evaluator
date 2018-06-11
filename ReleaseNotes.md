@@ -1,5 +1,10 @@
 # RELEASE NOTES
 
+## Version 0.4.1
+- Changed package to com.github.wendelsilverio.mathevaluator
+- Removed webservice files
+- Refactoring operators and functions packages
+
 ## Version 0.4.0
 - Removed webservice module
 - Removed formula repository module
